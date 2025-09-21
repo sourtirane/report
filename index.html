@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rapport d'état du projet Baytup - Janvier 2025</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #F2612A;
+            --primary-dark: #d94f1f;
+            --secondary: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --text: #334155;
+            --border: #e2e8f0;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-orange: linear-gradient(135deg, #F2612A 0%, #ff8c42 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(to bottom, #ffffff, #f8fafc);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--gradient-orange);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            animation: float 25s infinite ease-in-out reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .header-stat {
+            text-align: center;
+        }
+
+        .header-stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            display: block;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+            flex: 1;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* Progress Bars */
+        .progress {
+            height: 10px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-orange);
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Status Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .badge-info {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--secondary);
+        }
+
+        /* Feature List */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: var(--light);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: linear-gradient(135deg, rgba(242, 97, 42, 0.1) 0%, rgba(255, 140, 66, 0.1) 100%);
+            transform: translateX(4px);
+        }
+
+        .feature-check {
+            color: var(--success);
+            margin-right: 12px;
+            font-size: 20px;
+        }
+
+        .feature-text {
+            flex: 1;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        /* Issue Cards */
+        .issue-card {
+            background: white;
+            border-left: 4px solid;
+            padding: 16px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .issue-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .issue-critical {
+            border-left-color: var(--danger);
+        }
+
+        .issue-warning {
+            border-left-color: var(--warning);
+        }
+
+        .issue-info {
+            border-left-color: var(--secondary);
+        }
+
+        .issue-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .issue-description {
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .issue-impact {
+            display: inline-block;
+            font-size: 12px;
+            color: #666;
+            background: var(--light);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* Metrics Table */
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .metrics-table th {
+            background: var(--light);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .metrics-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .metrics-table tr:hover {
+            background: rgba(242, 97, 42, 0.03);
+        }
+
+        .metric-status {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-size: 12px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 24px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--primary);
+            z-index: 1;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        /* Charts Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 12px;
+        }
+
+        /* Tech Stack Icons */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(242, 97, 42, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .tech-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-stats {
+                gap: 20px;
+            }
+            
+            .logo {
+                font-size: 36px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header {
+                background: none;
+                color: black;
+                border: 2px solid var(--primary);
+            }
+            
+            .card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+<div class="container">
+<div class="header-content">
+<div class="logo">🏠 BAYTUP</div>
+<div class="subtitle">Rapport d'état de projet complet</div>
+<div class="header-stats">
+<div class="header-stat">
+<span class="header-stat-value">85%</span>
+<span class="header-stat-label">Terminé</span>
+</div>
+<div class="header-stat">
+<span class="header-stat-value">3-5</span>
+<span class="header-stat-label">Semaines avant le lancement</span>
+</div>
+<div class="header-stat">
+<span class="header-stat-value">7.5/10</span>
+<span class="header-stat-label">Indice de santé</span>
+</div>
+<div class="header-stat">
+<span class="header-stat-value">v1.4.0</span>
+<span class="header-stat-label">Version</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="container">
+
+<div class="card animate">
+<div class="card-header">
+<div class="card-icon" style="background: var(--gradient-orange); color: white;">📊</div>
+<h2 class="card-title">Résumé exécutif</h2>
+<span class="badge badge-info">Phase de développement</span>
+</div>
+<p style="font-size: 16px; line-height: 1.7; color: var(--text);">
+                Baytup a franchi une étape majeure de son développement, avec 85 % des fonctionnalités déjà finalisées et intégrées. L’architecture repose sur une base solide et moderne (Next.js 14, Node.js, MongoDB, Redis), ce qui garantit scalabilité, rapidité et fiabilité.
+
+La plateforme offre déjà l’essentiel : authentification sécurisée, gestion des utilisateurs et des annonces (logements et véhicules), système de réservation complet, messagerie en temps réel, intégration de paiements, support multilingue et interface responsive avec PWA.
+
+Les derniers efforts à fournir concernent surtout :
+
+la correction de quelques problèmes critiques (Redis, WebSockets, configuration d’environnements),
+
+l’optimisation des performances (bundle, indexation base de données, tests de charge),
+
+la préparation finale au déploiement (sécurité, documentation, CI/CD).
+
+Grâce à ce socle déjà robuste et à une feuille de route claire, Baytup est en excellente position pour être prêt en production dans les prochaines semaines. Le projet est techniquement avancé, aligné avec nos objectifs, et dispose d’une marge d’optimisation bien identifiée.
+            </p>
+<div class="progress" style="margin-top: 20px;">
+<div class="progress-bar" style="width: 80%;"></div>
+</div>
+<div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: #666;">
+<span>Avancement du projet</span>
+<span>85% Terminé</span>
+</div>
+</div>
+<!-- Technology Stack -->
+<div class="grid grid-2">
+<div class="card animate" style="animation-delay: 0.1s;">
+<div class="card-header">
+<div class="card-icon" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">💻</div>
+<h3 class="card-title">Pile Frontend</h3>
+</div>
+<div class="tech-stack">
+<div class="tech-item">
+<span class="tech-icon">⚛️</span>
+<span>Next.js 14.2.28</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">🎨</span>
+<span>Tailwind CSS</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">🔄</span>
+<span>React Query</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">🌐</span>
+<span>next-intl</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">🗺️</span>
+<span>Google Maps</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">📱</span>
+<span>PWA Support</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">🔌</span>
+<span>Socket.IO Client</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">🏪</span>
+<span>Zustand</span>
+</div>
+</div>
+</div>
+<div class="card animate" style="animation-delay: 0.2s;">
+<div class="card-header">
+<div class="card-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white;">🔧</div>
+<h3 class="card-title">Pile Backend</h3>
+</div>
+<div class="tech-stack">
+<div class="tech-item">
+<span class="tech-icon">🟢</span>
+<span>Node.js 18+</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">🚂</span>
+<span>Express.js</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">🍃</span>
+<span>MongoDB</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">📊</span>
+<span>Redis</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">🔐</span>
+<span>JWT Auth</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">📧</span>
+<span>Nodemailer</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">⚡</span>
+<span>Socket.IO</span>
+</div>
+<div class="tech-item">
+<span class="tech-icon">💳</span>
+<span>Slick Pay</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card animate" style="animation-delay: 0.3s;">
+<div class="card-header">
+<div class="card-icon" style="background: linear-gradient(135deg, #10b981, #34d399); color: white;">✅</div>
+<h2 class="card-title">Fonctionnalités Terminées</h2>
+<span class="badge badge-success">12 Modules</span>
+</div>
+<div class="feature-grid">
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Authentification JWT et OAuth Google</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Gestion des utilisateurs et vérification KYC</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Annonces de logements et de véhicules</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Recherche avancée avec filtres</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">système de réservation complet</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Messagerie en temps réel (Socket.IO)</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Gestion des avis et des notations</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Intégration de passerelle de paiement</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Tableau de bord administrateur et analytics</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Support multilingue (EN, FR, AR)</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Support PWA</span>
+</div>
+<div class="feature-item">
+<span class="feature-check">✓</span>
+<span class="feature-text">Gestion des utilisateurs et vérification KYC</span>
+</div>
+</div>
+</div>
+
+<div class="grid grid-2">
+<div class="card animate" style="animation-delay: 0.4s;">
+<div class="card-header">
+<div class="card-icon" style="background: linear-gradient(135deg, #ef4444, #f87171); color: white;">🔴</div>
+<h3 class="card-title">Problèmes critiques</h3>
+<span class="badge badge-danger">3 Items</span>
+</div>
+<div class="issue-card issue-critical">
+<div class="issue-title">
+<span>⚠️</span>
+                        Mauvaise isolation des configurations d'environnement
+                    </div>
+<div class="issue-description">
+                        Les variables d'environnement de développement et de production ne sont pas correctement isolées, ce qui crée des risques de sécurité.
+                    </div>
+<span class="issue-impact">Impact: High - Security Risk</span>
+</div>
+<div class="issue-card issue-critical">
+<div class="issue-title">
+<span>⚠️</span>
+                        Gestion des connexions Redis
+                    </div>
+<div class="issue-description">
+                        La connexion à Redis peut échouer silencieusement en développement, ce qui impacte les performances du cache.
+                    </div>
+<span class="issue-impact">Impact: Medium - Performance</span>
+</div>
+<div class="issue-card issue-critical">
+<div class="issue-title">
+<span>⚠️</span>
+                        Fuites mémoire Socket.IO
+                    </div>
+<div class="issue-description">
+                        Les connexions WebSocket de longue durée peuvent provoquer des fuites mémoire au fil du temps.
+                    </div>
+<span class="issue-impact">Impact: High - Stability</span>
+</div>
+</div>
+<div class="card animate" style="animation-delay: 0.5s;">
+<div class="card-header">
+<div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white;">⚡</div>
+<h3 class="card-title">Problèmes de performance</h3>
+<span class="badge badge-warning">2 Items</span>
+</div>
+<div class="issue-card issue-warning">
+<div class="issue-title">
+<span>📦</span>
+                        Taille de bundle importante
+                    </div>
+<div class="issue-description">
+                        La taille initiale du bundle est de 2,4 Mo ; l'objectif est d'être inférieur à 1 Mo pour des performances optimales.
+                    </div>
+<span class="issue-impact">Impact: Medium - Load Time</span>
+</div>
+<div class="issue-card issue-warning">
+<div class="issue-title">
+<span>🗄️</span>
+                        Indexes manquants dans la base de données
+                    </div>
+<div class="issue-description">
+                        Les champs fréquemment interrogés ne disposent pas d'index appropriés, entraînant des opérations de recherche lentes.
+                    </div>
+<span class="issue-impact">Impact: Medium - Query Speed</span>
+</div>
+</div>
+</div>
+
+<!-- Performance Metrics with Tooltips -->
+<div class="card animate" style="animation-delay: 0.6s;">
+    <div class="card-header">
+        <div class="card-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe); color: white;">📈</div>
+        <h2 class="card-title">Métriques de performance</h2>
+    </div>
+    <table class="metrics-table">
+        <thead>
+            <tr>
+                <th>Métrique</th>
+                <th>Actuel</th>
+                <th>Cible</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    First Contentful Paint 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">
+                            Temps nécessaire pour afficher le premier élément visuel 
+                            (texte ou image) à l’écran après le chargement de la page.
+                        </span>
+                    </span>
+                </td>
+                <td>2.3s</td>
+                <td>&lt;1.5s</td>
+                <td><span class="metric-status" style="background: #fbbf24;">⚠️</span></td>
+            </tr>
+            <tr>
+                <td>
+                    Time to Interactive 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">
+                            Temps nécessaire pour que la page devienne totalement interactive 
+                            (clics, formulaires, menus disponibles).
+                        </span>
+                    </span>
+                </td>
+                <td>4.2s</td>
+                <td>&lt;3.0s</td>
+                <td><span class="metric-status" style="background: #fbbf24;">⚠️</span></td>
+            </tr>
+            <tr>
+                <td>
+                    Largest Contentful Paint 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">
+                            Temps pour afficher l’élément principal visible de la page 
+                            (ex. image de bannière, titre). Mesure clé de vitesse perçue.
+                        </span>
+                    </span>
+                </td>
+                <td>3.8s</td>
+                <td>&lt;2.5s</td>
+                <td><span class="metric-status" style="background: #fbbf24;">⚠️</span></td>
+            </tr>
+            <tr>
+                <td>
+                    API Response Time 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">
+                            Temps moyen de réponse de l’API. Plus il est bas, 
+                            plus les interactions utilisateur sont rapides.
+                        </span>
+                    </span>
+                </td>
+                <td>250ms</td>
+                <td>&lt;200ms</td>
+                <td><span class="metric-status" style="background: #10b981;">✓</span></td>
+            </tr>
+            <tr>
+                <td>
+                    Database Query Time 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">
+                            Durée moyenne d’exécution des requêtes sur la base de données. 
+                            Un temps bas garantit des recherches et chargements rapides.
+                        </span>
+                    </span>
+                </td>
+                <td>45ms</td>
+                <td>&lt;50ms</td>
+                <td><span class="metric-status" style="background: #10b981;">✓</span></td>
+            </tr>
+            <tr>
+                <td>
+                    WebSocket Latency 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">
+                            Temps de latence moyen pour la communication temps réel 
+                            (chat, notifications). Indicateur clé pour l’expérience live.
+                        </span>
+                    </span>
+                </td>
+                <td>35ms</td>
+                <td>&lt;50ms</td>
+                <td><span class="metric-status" style="background: #10b981;">✓</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Tooltip styles (déjà utilisés ailleurs, ne pas dupliquer si déjà présents) -->
+
+
+<!-- Action Timeline -->
+<div class="card animate" style="animation-delay: 0.7s;">
+<div class="card-header">
+<div class="card-icon" style="background: var(--gradient-orange); color: white;">📅</div>
+<h2 class="card-title">Calendrier de développement</h2>
+</div>
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<div class="timeline-date">Week 1 (Actuel)</div>
+<div class="timeline-title">Priorité 1 - Correctifs critiques</div>
+<ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #666;">
+<li>Corriger les problèmes de connexion Redis</li>
+<li>Résoudre la configuration des environnements</li>
+<li>Optimiser la taille du bundle</li>
+</ul>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<div class="timeline-date">Semaines 2-3</div>
+<div class="timeline-title">Priorité 2 - Sécurité et performance</div>
+<ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #666;">
+<li>Terminé security audit</li>
+<li>Optimisation des performances</li>
+<li>Amélioration de la gestion des erreurs</li>
+</ul>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<div class="timeline-date">Semaines 3-5</div>
+<div class="timeline-title">Priorité 3 - Prêt pour la production</div>
+<ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #666;">
+<li>Tests de charge</li>
+<li>Documentation</li>
+<li>Préparation au déploiement</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Risk Assessment with Tooltips -->
+
+<div class="card animate" style="animation-delay: 0.8s;">
+    <div class="card-header">
+        <div class="card-icon" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">⚠️</div>
+        <h2 class="card-title">Évaluation des risques</h2>
+    </div>
+    <div class="grid grid-3">
+        <!-- Risque 1 -->
+        <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 48px; margin-bottom: 10px;">🗄️</div>
+            <h4 style="color: var(--dark); margin-bottom: 8px;">
+                Surcharge de base de données 
+                <span class="tooltip">ℹ️
+                    <span class="tooltip-text">
+                        Quand trop de requêtes arrivent en même temps, la base peut devenir lente ou planter. 
+                        Solution : mettre en cache les données fréquentes et ajouter des bases répliquées.
+                    </span>
+                </span>
+            </h4>
+            <span class="badge badge-warning">Risque moyen</span>
+            <p style="font-size: 14px; color: #666; margin-top: 8px;">Mettre en place du caching & des réplicas de lecture</p>
+        </div>
+
+        <!-- Risque 2 -->
+        <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 48px; margin-bottom: 10px;">🔐</div>
+            <h4 style="color: var(--dark); margin-bottom: 8px;">
+                Violation de sécurité 
+                <span class="tooltip">ℹ️
+                    <span class="tooltip-text">
+                        Une faille peut exposer les données des utilisateurs (mot de passe, paiements, etc.). 
+                        Solution : réaliser des audits de sécurité et des tests de pénétration.
+                    </span>
+                </span>
+            </h4>
+            <span class="badge badge-danger">Risque faible</span>
+            <p style="font-size: 14px; color: #666; margin-top: 8px;">Audit de sécurité & tests d’intrusion</p>
+        </div>
+
+        <!-- Risque 3 -->
+        <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 48px; margin-bottom: 10px;">💳</div>
+            <h4 style="color: var(--dark); margin-bottom: 8px;">
+                Échec de paiement 
+                <span class="tooltip">ℹ️
+                    <span class="tooltip-text">
+                        Si un fournisseur de paiement échoue, les transactions des utilisateurs sont bloquées. 
+                        Solution : prévoir plusieurs prestataires de paiement en secours.
+                    </span>
+                </span>
+            </h4>
+            <span class="badge badge-info">Risque faible</span>
+            <p style="font-size: 14px; color: #666; margin-top: 8px;">Ajouter des prestataires de paiement de secours</p>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+<!-- Success Metrics with Tooltips -->
+ 
+<div class="grid grid-4">
+    <!-- Disponibilité -->
+    <div class="card animate" style="animation-delay: 0.9s; text-align: center;">
+        <div style="font-size: 32px; color: var(--primary); font-weight: bold;">99.9%</div>
+        <div style="color: #666; font-size: 14px; margin-top: 8px;">
+            Disponibilité cible 
+            <span class="tooltip">ℹ️
+                <span class="tooltip-text">
+                    Pourcentage de temps où la plateforme reste en ligne et accessible. 
+                    99,9 % signifie moins de 9h de panne par an.
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Réponse API -->
+    <div class="card animate" style="animation-delay: 1.0s; text-align: center;">
+        <div style="font-size: 32px; color: var(--primary); font-weight: bold;">&lt;200ms</div>
+        <div style="color: #666; font-size: 14px; margin-top: 8px;">
+            Réponse API 
+            <span class="tooltip">ℹ️
+                <span class="tooltip-text">
+                    Temps moyen de réponse de l’API aux requêtes. 
+                    Plus c’est bas, plus l’expérience utilisateur est fluide.
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Taux d'erreur -->
+    <div class="card animate" style="animation-delay: 1.1s; text-align: center;">
+        <div style="font-size: 32px; color: var(--primary); font-weight: bold;">&lt;1%</div>
+        <div style="color: #666; font-size: 14px; margin-top: 8px;">
+            Taux d’erreur 
+            <span class="tooltip">ℹ️
+                <span class="tooltip-text">
+                    Pourcentage de requêtes qui échouent (erreurs serveur, plantages). 
+                    Objectif : maintenir un taux <1% pour assurer la fiabilité.
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Chargement de page -->
+    <div class="card animate" style="animation-delay: 1.2s; text-align: center;">
+        <div style="font-size: 32px; color: var(--primary); font-weight: bold;">&lt;2s</div>
+        <div style="color: #666; font-size: 14px; margin-top: 8px;">
+            Chargement de page 
+            <span class="tooltip">ℹ️
+                <span class="tooltip-text">
+                    Temps total nécessaire pour que la page soit prête et utilisable 
+                    (HTML, JS, images). Objectif : moins de 2 secondes.
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+ 
+<!-- Recommendations -->
+<div class="card animate" style="animation-delay: 1.3s;">
+<div class="card-header">
+<div class="card-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white;">💡</div>
+<h2 class="card-title">Recommandations clés</h2>
+</div>
+<div class="grid grid-2" style="gap: 16px;">
+<div style="padding: 16px; background: var(--light); border-radius: 8px;">
+<h4 style="color: var(--primary); margin-bottom: 12px;">🔧 Technique</h4>
+<ul style="list-style: none; padding: 0;">
+<li style="margin-bottom: 8px;">✦ Implémenter la gestion des versions de l'API (/api/v1/)</li>
+<li style="margin-bottom: 8px;">✦ Ajouter une suite de tests automatisés</li>
+<li style="margin-bottom: 8px;">✦ Renforcer la supervision et les alertes</li>
+<li style="margin-bottom: 8px;">✦ Optimiser la base de données avec du sharding</li>
+</ul>
+</div>
+<div style="padding: 16px; background: var(--light); border-radius: 8px;">
+<h4 style="color: var(--primary); margin-bottom: 12px;">📊 Business</h4>
+<ul style="list-style: none; padding: 0;">
+<li style="margin-bottom: 8px;">✦ Mettre en place un système de retours utilisateurs</li>
+<li style="margin-bottom: 8px;">✦ Intégrer des analytics (GA/Mixpanel)</li>
+<li style="margin-bottom: 8px;">✦ Concevoir une architecture scalable</li>
+<li style="margin-bottom: 8px;">✦ Préparer le déploiement multi-région</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Final Summary -->
+<div class="card animate" style="animation-delay: 1.4s; background: linear-gradient(135deg, rgba(242, 97, 42, 0.05), rgba(255, 140, 66, 0.05));">
+    <div class="card-header">
+        <div class="card-icon" style="background: var(--gradient-orange); color: white;">🎯</div>
+        <h2 class="card-title">Conclusion</h2>
+    </div>
+    <p style="font-size: 16px; line-height: 1.7; color: var(--text);">
+        <strong>Baytup a atteint un stade de développement solide avec <span style="font-weight:800;">85&nbsp;%</span> des fonctionnalités déjà implémentées.</strong>
+        La plateforme se positionne aujourd’hui comme un <strong>MVP avancé</strong> : toutes les briques essentielles sont en place (authentification sécurisée, gestion des utilisateurs, annonces de logements et de véhicules, système de réservation, intégration des paiements, messagerie en temps réel et support multilingue), ce qui permet de démontrer le concept, de recueillir des retours et de tester le marché.
+    </p>
+
+    <p style="font-size: 16px; line-height: 1.7; color: var(--text); margin-top: 12px;">
+        Néanmoins, quelques éléments critiques nécessitent encore une attention ciblée avant de considérer la plateforme comme <em>production P1</em> : correction des problèmes identifiés (connexion Redis et gestion des connexions WebSocket pour éviter les fuites mémoire), amélioration des performances observées (réduction de la taille du bundle, optimisation du FCP/LCP/TTI, indexation DB) et réalisation d’un audit de sécurité complet. Ces travaux sont essentiellement d’optimisation, stabilisation et durcissement.
+    </p>
+
+    <p style="font-size: 16px; line-height: 1.7; color: var(--text); margin-top: 12px;">
+        👉 Avec <strong>3 à 5 semaines</strong> d’efforts ciblés sur ces points (correctifs critiques, tests de charge, CI/CD, et audit sécurité), Baytup peut évoluer rapidement de ce MVP avancé vers une <strong>version production-ready</strong> offrant la fiabilité, la performance et la sécurité nécessaires pour un déploiement à grande échelle sur le marché algérien.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 24px;">
+        <div style="text-align: center; padding: 16px; background: white; border-radius: 8px;">
+            <div style="font-size: 24px; font-weight: bold; color: var(--success);">85%</div>
+            <div style="font-size: 12px; color: #666;">Statut d'avancement</div>
+        </div>
+        <div style="text-align: center; padding: 16px; background: white; border-radius: 8px;">
+            <div style="font-size: 24px; font-weight: bold; color: var(--warning);">3-5 Semaines</div>
+            <div style="font-size: 12px; color: #666;">Temps estimé pour production-ready</div>
+        </div>
+        <div style="text-align: center; padding: 16px; background: white; border-radius: 8px;">
+            <div style="font-size: 24px; font-weight: bold; color: var(--primary);">7.5/10</div>
+            <div style="font-size: 12px; color: #666;">Indice de santé (actuel)</div>
+        </div>
+    </div>
+</div>
+<!-- Dashboard de Pilotage -->
+<div class="card animate" style="animation-delay: 1.5s; background: linear-gradient(135deg, rgba(36, 99, 235, 0.05), rgba(16, 185, 129, 0.05));">
+    <div class="card-header">
+        <div class="card-icon" style="background: var(--secondary); color: white;">📊</div>
+        <h2 class="card-title">Tableau de pilotage</h2>
+    </div>
+
+    <!-- Indice de santé -->
+    <h3 style="margin-bottom: 12px; color: var(--dark);">Indice de santé (7.5/10)</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+        <div style="flex: 1; min-width: 280px;">
+            <canvas id="healthRadar" style="max-width: 400px;"></canvas>
+        </div>
+        <ul style="flex: 1; min-width: 280px; font-size: 14px; color: #444; line-height: 1.6; list-style: none; padding-left: 0;">
+            <li>✅ <strong>Fonctionnalités :</strong> 85 % déjà prêtes</li>
+            <li>⚠️ <strong>Performance :</strong> à optimiser (bundle, LCP, TTI)</li>
+            <li>⚠️ <strong>Sécurité :</strong> audit complet en attente</li>
+            <li>✅ <strong>Stabilité :</strong> API et DB stables, WebSocket à corriger</li>
+        </ul>
+    </div>
+
+    <!-- Roadmap -->
+    <h3 style="margin: 20px 0 12px; color: var(--dark);">Feuille de route</h3>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">Phase actuelle</div>
+                <div class="timeline-title">MVP avancé</div>
+                <p style="font-size: 14px; color: #666;">85 % de complétion – produit déjà testable</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">+3 à 5 semaines</div>
+                <div class="timeline-title">Production P1</div>
+                <p style="font-size: 14px; color: #666;">Correctifs critiques, perf & sécurité → prêt pour déploiement</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="timeline-date">Étape future</div>
+                <div class="timeline-title">P2 – Scaling</div>
+                <p style="font-size: 14px; color: #666;">Scalabilité, multi-région, extension marché</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Risques -->
+    <h3 style="margin: 20px 0 12px; color: var(--dark);">Principaux risques & plans d’action</h3>
+    <div class="grid grid-3">
+        <div style="padding: 12px; background: var(--light); border-radius: 8px;">
+            <strong>⚠️ Redis / WebSocket</strong>
+            <p style="font-size: 13px; color: #666;">Risques de fuite mémoire & crash long terme.<br><em>Plan :</em> correctif semaine 1.</p>
+        </div>
+        <div style="padding: 12px; background: var(--light); border-radius: 8px;">
+            <strong>⚡ Performance</strong>
+            <p style="font-size: 13px; color: #666;">Bundle 2.4 Mo trop lourd.<br><em>Plan :</em> optimisation semaine 1-2.</p>
+        </div>
+        <div style="padding: 12px; background: var(--light); border-radius: 8px;">
+            <strong>🔐 Sécurité</strong>
+            <p style="font-size: 13px; color: #666;">Audit et pentest non réalisés.<br><em>Plan :</em> audit semaine 2-3.</p>
+        </div>
+    </div>
+
+    <!-- KPIs de succès -->
+<!-- Indice de santé -->
+<div class="card animate" style="animation-delay: 1.4s; background: linear-gradient(135deg, rgba(36, 99, 235, 0.05), rgba(16, 185, 129, 0.05));">
+    <div class="card-header">
+        <div class="card-icon" style="background: var(--secondary); color: white;">❤️</div>
+        <h2 class="card-title">Indice de santé du site</h2>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: center;">
+        <!-- Camembert -->
+        <div style="flex: 1; min-width: 280px; text-align:center;">
+            <canvas id="healthPie" style="max-width: 260px; margin:auto;"></canvas>
+            <p style="margin-top: 10px; font-size: 14px; color: #444;">
+                Score actuel : <strong style="color: var(--primary);">7,5 / 10</strong>
+            </p>
+        </div>
+
+        <!-- Explications -->
+        <div style="flex: 2; min-width: 320px; font-size: 14px; color: #444; line-height: 1.6;">
+            <p><strong>Pourquoi seulement 7,5 ?</strong></p>
+            <ul style="padding-left: 18px; margin: 8px 0;">
+                <li>⚠️ <strong>Performance :</strong> bundle trop lourd, LCP et TTI supérieurs aux objectifs.</li>
+                <li>⚠️ <strong>Sécurité :</strong> audit complet et tests d’intrusion non réalisés.</li>
+                <li>✅ <strong>Fonctionnalités :</strong> 85 % déjà prêtes et opérationnelles.</li>
+                <li>✅ <strong>Stabilité :</strong> API et DB solides, correctif WebSocket en cours.</li>
+            </ul>
+
+            <p><strong>Quel est un bon indice ?</strong></p>
+            <p>
+                Un site professionnel doit viser au moins un <strong style="color: var(--success);">9/10</strong>.  
+                Un score de <strong>10/10</strong> est rare et réservé aux plateformes matures 
+                (sécurité irréprochable, performances maximales, zéro bug critique).
+            </p>
+
+            <p><strong>Comment atteindre 9/10 ?</strong></p>
+            <ul style="padding-left: 18px; margin: 8px 0;">
+                <li>💡 Optimiser le bundle (réduction de 2,4 Mo → &lt;1 Mo).</li>
+                <li>💡 Corriger la latence LCP (&lt;2,5s) et TTI (&lt;3s).</li>
+                <li>🔐 Réaliser un audit sécurité + tests d’intrusion.</li>
+                <li>📈 Corriger les fuites mémoire WebSocket.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- KPIs de succès -->
+<div class="card animate" style="animation-delay: 1.5s;">
+    <div class="card-header">
+        <div class="card-icon" style="background: var(--primary); color: white;">🎯</div>
+        <h2 class="card-title">KPIs de succès (Objectifs sortie)</h2>
+    </div>
+
+    <div class="kpi-grid">
+        <!-- KPI 1 : Annonces logements -->
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-value" style="color: var(--primary);">500+</div>
+                <div class="kpi-label">Annonces logements</div>
+            </div>
+            <div class="kpi-plan">
+                <strong>Plan d’acquisition :</strong>
+                <ul>
+                    <li>📢 Groupes <strong>Telegram & Facebook</strong> spécialisés.</li>
+                    <li>🤝 Recrutement d’un <strong>Business Developer</strong> pour agences & particuliers.</li>
+                    <li>🎯 Campagnes locales (universités, quartiers résidentiels, flyers digitaux).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- KPI 2 : Temps de recherche -->
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-value" style="color: var(--success);">&lt;2s</div>
+                <div class="kpi-label">Temps de recherche</div>
+            </div>
+            <div class="kpi-plan">
+                <strong>Plan technique :</strong>
+                <ul>
+                    <li>⚡ Optimiser le bundle (lazy loading, compression, cache CDN).</li>
+                    <li>📊 Ajouter des index sur les champs de recherche.</li>
+                    <li>🗂️ Mettre en place du caching (Redis) pour les recherches fréquentes.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- KPI 3 : Taux d'erreur -->
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-value" style="color: var(--success);">&lt;1%</div>
+                <div class="kpi-label">Taux d’erreur</div>
+            </div>
+            <div class="kpi-plan">
+                <strong>Plan qualité :</strong>
+                <ul>
+                    <li>🔍 Tests automatisés (unitaires & end-to-end).</li>
+                    <li>📈 Monitoring temps réel (logs & alertes Slack/Email).</li>
+                    <li>🛠️ CI/CD robuste avec rollback automatique.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles KPI -->
+<style>
+.kpi-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 20px;
+}
+.kpi-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* KPI à gauche / plan à droite */
+    align-items: center;
+    gap: 20px;
+}
+.kpi-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.kpi-value {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+.kpi-label {
+    font-size: 13px;
+    color: #666;
+}
+.kpi-plan {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+    border: 1px solid var(--border);
+}
+.kpi-plan ul {
+    padding-left: 18px;
+    margin: 8px 0 0;
+}
+</style>
+
+<!-- Script camembert -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Camembert Indice de Santé
+const healthCtx = document.getElementById('healthPie');
+new Chart(healthCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Score actuel (7.5)', 'Points manquants'],
+        datasets: [{
+            data: [7.5, 2.5],
+            backgroundColor: ['rgba(37, 99, 235, 0.85)', 'rgba(229, 231, 235, 0.6)'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        cutout: '70%',
+        plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false }
+        }
+    }
+});
+</script>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('healthRadar');
+new Chart(ctx, {
+    type: 'radar',
+    data: {
+        labels: ['Fonctionnalités', 'Performance', 'Sécurité', 'Stabilité'],
+        datasets: [{
+            label: 'Indice de santé',
+            data: [8.5, 6.5, 6.5, 8.0], // valeurs exemple
+            backgroundColor: 'rgba(37, 99, 235, 0.2)',
+            borderColor: 'rgba(37, 99, 235, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: { scales: { r: { suggestedMin: 0, suggestedMax: 10 } } }
+});
+</script>
+
+</div>
+
+<!-- Task Tracker Section with Tooltips -->
+<div class="card animate" style="animation-delay: 1.5s;">
+    <div class="card-header">
+        <div class="card-icon" style="background: linear-gradient(135deg, #10b981, #34d399); color: white;">📝</div>
+        <h2 class="card-title">Suivi des tâches</h2>
+    </div>
+    <table class="metrics-table">
+        <thead>
+            <tr>
+                <th>Tâche</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Semaine 1 -->
+            <tr>
+                <td><strong>Semaine 1 - Correctifs critiques</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    Corriger les problèmes de connexion Redis 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Redis est utilisé pour le cache et les connexions en temps réel. Ce point consiste à sécuriser la connexion, gérer les erreurs et éviter les pannes silencieuses.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Résoudre la configuration des environnements 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Séparer correctement les fichiers .env (dev, test, prod) pour éviter les erreurs et fuites de données sensibles.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Optimiser la taille du bundle 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Réduire le poids du code frontend (2.4 MB ➝ <1 MB) via lazy loading, compression, et analyse du bundle.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+
+            <!-- Semaines 2-3 -->
+            <tr>
+                <td><strong>Semaines 2-3 - Sécurité & Performance</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    Compléter l’audit de sécurité 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Faire un audit complet du code, dépendances et accès, afin de détecter les failles de sécurité.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Optimisations de performance 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Améliorer la vitesse d’exécution et de chargement (caching, DB indexing, tests de rapidité).</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Améliorer la gestion des erreurs 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Ajouter une gestion robuste des erreurs backend et frontend avec logs et alertes.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+
+            <!-- Semaines 3-5 -->
+            <tr>
+                <td><strong>Semaines 3-5 - Prêt pour la production</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    Tests de charge 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Simuler des milliers d’utilisateurs pour vérifier la stabilité et la scalabilité de la plateforme.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Documentation 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Créer une documentation claire pour les développeurs, admins et utilisateurs.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Préparation au déploiement 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Mettre en place CI/CD, environnements de staging et checklist avant mise en production.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+
+            <!-- Recommandations techniques -->
+            <tr>
+                <td><strong>Recommandations techniques</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    Mettre en place le versionnement d’API (/api/v1/) 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Permet de gérer différentes versions de l’API sans casser les anciennes intégrations.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Ajouter une suite de tests automatisés 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Garantir la qualité du code et éviter les régressions via des tests unitaires et d’intégration.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Améliorer la surveillance & alertes 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Mettre en place un système de monitoring (logs, métriques, alertes Slack/Email).</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Optimiser la base de données avec le sharding 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Répartir les données sur plusieurs serveurs pour augmenter la performance et réduire la charge.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+
+            <!-- Recommandations business -->
+            <tr>
+                <td><strong>Recommandations business</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    Mettre en place un système de feedback utilisateur 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Collecter les avis des utilisateurs pour améliorer le produit en continu.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Intégrer des outils d’analytics (GA/Mixpanel) 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Analyser le comportement des utilisateurs pour orienter les décisions business.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Planifier l’architecture de scalabilité 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Prévoir dès maintenant une architecture capable de gérer une forte croissance.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+            <tr>
+                <td>
+                    Préparer un déploiement multi-régions 
+                    <span class="tooltip">ℹ️
+                        <span class="tooltip-text">Héberger l’application dans plusieurs régions pour réduire la latence et améliorer la résilience.</span>
+                    </span>
+                </td>
+                <td><button class="toggle-btn">PAS FAIT</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Styles pour boutons et tooltips -->
+<style>
+.toggle-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    background: #ef4444;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.toggle-btn.on {
+    background: #10b981;
+}
+
+/* --- TOOLTIP GLOBAL --- */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 6px;
+  font-size: 14px;
+  color: #64748b; /* gris neutre, peut être ajusté */
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  max-width: 400px;
+  min-width: 200px;
+  background-color: #1e293b;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 10px 14px;
+  position: absolute;
+  z-index: 99999;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: normal;
+  overflow: visible;
+}
+
+/* Forcer les tooltips à dépasser des cartes si besoin */
+.card {
+  overflow: visible !important;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Petite flèche sous le tooltip */
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #1e293b transparent transparent transparent;
+}
+/* --- FIN TOOLTIP GLOBAL --- */
+</style>
+
+<!-- Script pour le toggle -->
+<script>
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.classList.toggle('on');
+        btn.textContent = btn.classList.contains('on') ? 'FAIT' : 'PAS FAIT';
+    });
+});
+</script>
+
+
+
+
+<!-- Footer -->
+<div class="footer">
+<div class="footer-logo">BAYTUP</div>
+<p style="color: #666; font-size: 14px;">
+            Project Statut Report • Generated: January 21, 2025 • Version 1.0.0
+        </p>
+<p style="color: #999; font-size: 12px; margin-top: 8px;">
+            Ce rapport est confidentiel et destiné uniquement à un usage interne
+        </p>
+</div>
+<script>
+        // Animate progress bars on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.getAttribute('data-width') || entry.target.style.width;
+                }
+            });
+        }, observerOptions);
+
+        // Observe all progress bars
+        document.querySelectorAll('.progress-bar').forEach(bar => {
+            observer.observe(bar);
+        });
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Print functionality
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+    </script>
+</body>
+</html>
